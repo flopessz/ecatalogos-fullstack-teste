@@ -26,6 +26,21 @@ export default function Shopping() {
     updateCartCount();
   };
 
+  const getGridColsClass = () => {
+    switch (gridCols) {
+      case 1:
+        return "grid-cols-1";
+      case 2:
+        return "grid-cols-2";
+      case 3:
+        return "grid-cols-3";
+      case 4:
+        return "grid-cols-4";
+      default:
+        return "grid-cols-2";
+    }
+  };
+
   const filteredProducts = products.filter((product) => {
     const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
     const isInCart = currentCart.some((item) => item.id === product.id);
@@ -146,7 +161,7 @@ export default function Shopping() {
       </div>
 
       {filteredProducts.length > 0 ? (
-        <div className={`grid grid-cols-${gridCols} gap-6 overflow-y-scroll`}>
+        <div className={`grid ${getGridColsClass()} gap-6 overflow-y-scroll`}>
           {filteredProducts.map((product) => (
             <div
               key={product.id}
